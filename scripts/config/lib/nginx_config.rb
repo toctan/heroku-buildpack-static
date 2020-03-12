@@ -33,6 +33,7 @@ class NginxConfig
     index = 0
     json["proxies"] ||= {}
     json["proxies"].each do |loc, hash|
+      json["proxies"][loc]["query"] = NginxConfigUtil.interpolate(hash['query'], ENV)
       evaled_origin = NginxConfigUtil.interpolate(hash['origin'], ENV)
       uri           = URI(evaled_origin)
 
